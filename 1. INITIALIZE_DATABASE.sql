@@ -29,57 +29,6 @@ ELSE
 END IF;
 
 
-
---Create CUSTOMER_LOAN Table
-SELECT count(*) into nCount FROM user_tables where table_name = 'CUSTOMER_LOAN';
-IF(nCount > 0)
-THEN
-    DBMS_OUTPUT.PUT_LINE('CUSTOMER_LOAN PEOPLE ALREADY EXISTS');
-ELSE
-    EXECUTE IMMEDIATE 'CREATE TABLE CUSTOMER_LOAN(
-      LOAN_ID NUMBER(20) NOT NULL,
-      CUST_ID NUMBER(20) NOT NULL
-      PRIMARY KEY(LOAN_ID))';  
-END IF;
-
---Create EMPLOYEE_LOAN Table
-SELECT count(*) into nCount FROM user_tables where table_name = 'EMPLOYEE_LOAN';
-IF(nCount > 0)
-THEN
-    DBMS_OUTPUT.PUT_LINE('EMPLOYEE_LOAN PEOPLE ALREADY EXISTS');
-ELSE
-    EXECUTE IMMEDIATE 'CREATE TABLE EMPLOYEE_LOAN(
-      LOAN_ID NUMBER(20) NOT NULL,
-      EMP_ID NUMBER(20) NOT NULL
-      PRIMARY KEY(LOAN_ID))';  
-END IF;
-
-
---Create CUSTOMER_CARD_SERVICES Table
-SELECT count(*) into nCount FROM user_tables where table_name = 'CUSTOMER_CARD_SERVICES';
-IF(nCount > 0)
-THEN
-    DBMS_OUTPUT.PUT_LINE('CUSTOMER_CARD_SERVICES PEOPLE ALREADY EXISTS');
-ELSE
-    EXECUTE IMMEDIATE 'CREATE TABLE CUSTOMER_CARD_SERVICES(
-      CARD_SERVICES_ID NUMBER(20) NOT NULL ,
-      CUST_ID NUMBER(20) NOT NULL
-      PRIMARY KEY(CARD_SERVICES_ID,CUST_ID))';  
-END IF;
-
---Create EMPLOYEE_CARD_SERVICES Table
-SELECT count(*) into nCount FROM user_tables where table_name = 'EMPLOYEE_CARD_SERVICES';
-IF(nCount > 0)
-THEN
-    DBMS_OUTPUT.PUT_LINE('EMPLOYEE_CARD_SERVICES PEOPLE ALREADY EXISTS');
-ELSE
-    EXECUTE IMMEDIATE 'CREATE TABLE EMPLOYEE_CARD_SERVICES(
-      CARD_SERVICES_ID NUMBER(20) NOT NULL ,
-      EMPLOYEE_ID NUMBER(20) NOT NULL
-      PRIMARY KEY(CARD_SERVICES_ID,EMPLOYEE_ID))';  
-END IF;
-
-
 --Create CARD_SERVICES Table
 SELECT count(*) into nCount FROM user_tables where table_name = 'CARD_SERVICES';
 IF(nCount > 0)
@@ -114,6 +63,7 @@ ELSE
       CHECK(REGEXP_LIKE(ZIP_CODE,''^[0-9]{5}$'')),
       PRIMARY KEY(ADDRESS_ID))';  
 END IF;
+
 --Create BRANCH table
 SELECT count(*) into nCount FROM user_tables where table_name = 'BRANCH';
 IF(nCount > 0)
@@ -143,6 +93,7 @@ ELSE
       BRANCH_ID                REFERENCES BRANCH(BRANCH_ID) ON DELETE CASCADE,
       PRIMARY KEY(SAVINGS_ACCOUNT_ID))'; 
 END IF;
+
 --Create Checking _Account table
 SELECT count(*) into nCount FROM user_tables where table_name = 'CHECKING_ACCOUNT';
 IF(nCount > 0)
@@ -157,6 +108,7 @@ ELSE
       PRIMARY KEY(CHECKING_ACCOUNT_ID))';
 
 END IF;
+
 --Create Transaction table
 SELECT count(*) into nCount FROM user_tables where table_name = 'TRANSACTION';
 IF(nCount > 0)
@@ -174,6 +126,8 @@ ELSE
   PRIMARY KEY(TRANSACTION_ID))';
     
 END IF;
+
+--Create EMPLOYEE table
 
 SELECT count(*) into nCount FROM user_tables where table_name = 'EMPLOYEE';
 IF(nCount > 0)
@@ -202,6 +156,8 @@ ELSE
 
 END IF;
 
+--Create CUSTOMER table
+
 SELECT count(*) into nCount FROM user_tables where table_name = 'CUSTOMER';
 IF(nCount > 0)
 THEN
@@ -226,6 +182,8 @@ ELSE
 
 END IF;
 
+--Create CUSTOMER_INSURANCE table
+
 SELECT count(*) into nCount FROM user_tables where table_name = 'CUSTOMER_INSURANCE';
 IF(nCount > 0)
 THEN
@@ -239,6 +197,8 @@ ELSE
       PRIMARY KEY(INSURANCE_ID))';    
 
 END IF;
+
+--Create EMPLOYEE_INSURANCE table
 
 SELECT count(*) into nCount FROM user_tables where table_name = 'EMPLOYEE_INSURANCE';
 IF(nCount > 0)
@@ -254,6 +214,8 @@ ELSE
 
 END IF;
 
+--Create EMPLOYEE_CARD_SERVICES table
+
 SELECT count(*) into nCount FROM user_tables where table_name = 'EMPLOYEE_CARD_SERVICES';
 IF(nCount > 0)
 THEN
@@ -266,6 +228,8 @@ ELSE
       PRIMARY KEY(CARD_SERVICE_ID))';    
 
 END IF;
+
+--Create CUSTOMER_CARD_SERVICES table
 
 SELECT count(*) into nCount FROM user_tables where table_name = 'CUSTOMER_CARD_SERVICES';
 IF(nCount > 0)
@@ -280,6 +244,8 @@ ELSE
 
 END IF;
 
+--Create CUSTOMER_LOAN table
+
 SELECT count(*) into nCount FROM user_tables where table_name = 'CUSTOMER_LOAN';
 IF(nCount > 0)
 THEN
@@ -292,6 +258,8 @@ ELSE
       PRIMARY KEY(LOAN_ID))';    
 
 END IF;
+
+--Create EMPLOYEE_LOAN table
 
 SELECT count(*) into nCount FROM user_tables where table_name = 'EMPLOYEE_LOAN';
 IF(nCount > 0)
@@ -311,7 +279,7 @@ END;
 
 select * from DESIGNATION;
 select * from LOAN;
-select * from CARD_SERVICES
+select * from CARD_SERVICES;
 select * from ADDRESS;
 select * from branch;
 select * from savings_account;
