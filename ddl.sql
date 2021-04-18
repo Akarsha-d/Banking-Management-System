@@ -20,7 +20,7 @@ USE `bank` ;
 DROP TABLE IF EXISTS `bank`.`account_details` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`account_details` (
-  `account_id` INT NOT NULL,
+  `account_id` INT NOT NULL AUTO_INCREMENT,
   `account_number` INT NULL,
   `account_type` VARCHAR(30) NOT NULL,
   `account_balance` INT NOT NULL,
@@ -42,7 +42,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bank`.`address` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`address` (
-  `address_id` INT NOT NULL,
+  `address_id` INT NOT NULL AUTO_INCREMENT,
   `addressline_1` VARCHAR(50) NOT NULL,
   `addressline_2` VARCHAR(50) NOT NULL,
   `city` VARCHAR(20) NOT NULL,
@@ -59,7 +59,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bank`.`branch` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`branch` (
-  `branch_id` INT NOT NULL,
+  `branch_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   `routing_id` INT NOT NULL,
   `swift_code` VARCHAR(20) NOT NULL,
@@ -73,7 +73,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bank`.`branch_address` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`branch_address` (
-  `branch_address_id` INT NOT NULL,
+  `branch_address_id` INT NOT NULL AUTO_INCREMENT,
   `addressline_1` VARCHAR(50) NOT NULL,
   `addressline_2` VARCHAR(50) NOT NULL,
   `city` VARCHAR(20) NOT NULL,
@@ -97,7 +97,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bank`.`card_services` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`card_services` (
-  `card_services_id` INT NOT NULL,
+  `card_services_id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`card_services_id`))
 ENGINE = InnoDB;
@@ -109,7 +109,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bank`.`customer` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`customer` (
-  `cust_id` INT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cust_id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(30) NOT NULL,
   `password` VARCHAR(30) NOT NULL,
   `first_name` VARCHAR(20) NOT NULL,
@@ -187,7 +187,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bank`.`designation` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`designation` (
-  `designation_id` INT NOT NULL,
+  `designation_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`designation_id`))
 ENGINE = InnoDB;
@@ -199,7 +199,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bank`.`employee` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`employee` (
-  `emp_id` INT NOT NULL,
+  `emp_id` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(20) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
   `email` VARCHAR(30) NOT NULL,
@@ -317,7 +317,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bank`.`insurance` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`insurance` (
-  `insurance_id` INT NOT NULL,
+  `insurance_id` INT NOT NULL AUTO_INCREMENT,
   `coverage` DOUBLE NOT NULL,
   PRIMARY KEY (`insurance_id`))
 ENGINE = InnoDB;
@@ -329,7 +329,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bank`.`loan` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`loan` (
-  `loan_id` INT NOT NULL,
+  `loan_id` INT NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(20) NOT NULL,
   `amount` DOUBLE NOT NULL,
   `roi` DOUBLE NOT NULL,
@@ -344,7 +344,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `bank`.`transaction` ;
 
 CREATE TABLE IF NOT EXISTS `bank`.`transaction` (
-  `transaction_id` INT NOT NULL,
+  `transaction_id` INT NOT NULL AUTO_INCREMENT,
   `transaction_type` VARCHAR(30) NOT NULL,
   `amount` DOUBLE NOT NULL,
   `account_id` INT NOT NULL,
