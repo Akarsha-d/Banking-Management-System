@@ -1,4 +1,3 @@
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -133,6 +132,29 @@ CREATE TABLE IF NOT EXISTS `bank`.`customer` (
     REFERENCES `bank`.`account_details` (`account_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `bank`.`customer_card_service`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `bank`.`customer_card_service` ;
+
+CREATE TABLE IF NOT EXISTS `bank`.`customer_card_service` (
+  `card_service_id` INT NULL,
+  `cust_id` INT NOT NULL,
+  INDEX `card_service_cust_id_idx` (`cust_id` ASC) VISIBLE,
+  INDEX `card_service_idx` (`card_service_id` ASC) VISIBLE,
+  CONSTRAINT `card_service_cust_id`
+    FOREIGN KEY (`cust_id`)
+    REFERENCES `bank`.`card_services` (`card_services_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `card_service`
+    FOREIGN KEY (`card_service_id`)
+    REFERENCES `bank`.`card_services` (`card_services_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
