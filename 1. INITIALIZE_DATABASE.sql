@@ -153,6 +153,20 @@ ELSE
       ACCOUNT_BALANCE          NUMBER NOT NULL,
       BRANCH_ID                REFERENCES BRANCH(BRANCH_ID) ON DELETE CASCADE,
       PRIMARY KEY(CHECKING_ACCOUNT_ID))';
+execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (9126653090,950000,(select branch_id from branch where address_id=38))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (8880846991,600000,(select branch_id from branch where address_id=40))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (5030861092,950000,(select branch_id from branch where address_id=39))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (8901512393,76699,(select branch_id from branch where address_id=39))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (5721915194,96540,(select branch_id from branch where address_id=38))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (9035770695,64890,(select branch_id from branch where address_id=37))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (7225991396,9500,(select branch_id from branch where address_id=37))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (9080114097,8896,(select branch_id from branch where address_id=36))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (3498976598,5500,(select branch_id from branch where address_id=36))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (7307271299,998750,(select branch_id from branch where address_id=40))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (8155991396,2400,(select branch_id from branch where address_id=41))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (8160114097,5896,(select branch_id from branch where address_id=42))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (8178976598,3500,(select branch_id from branch where address_id=43))';
+ execute immediate 'insert into CHECKING_ACCOUNT (ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) values (8187271299,2050,(select branch_id from branch where address_id=44))';
 
 END IF;
 
@@ -199,7 +213,14 @@ ELSE
       CHECK(REGEXP_LIKE(EMAIL,''^[A-Za-z]+[A-Za-z0-9.]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$'')),
       CHECK(REGEXP_LIKE(USERNAME,''^[A-Za-z0-9]{1,16}$'')),
       CHECK(REGEXP_LIKE(PHONE_NUMBER,''^[0-9]{10}$'')),    
-      PRIMARY KEY(EMP_ID))';    
+      PRIMARY KEY(EMP_ID))';   
+execute immediate 'insert into EMPLOYEE(USERNAME,PASSWORD,EMAIL,PHONE_NUMBER,FIRST_NAME,LAST_NAME,DESIGNATION_ID,SALARY,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Stella'',''yxbzfce32y47b0'',''Stella.Crooks@gmail.com'',9455945861,''Stella'',''Crooks'',((SELECT DESIGNATION_ID FROM DESIGNATION WHERE NAME = ''Chairperson'')),995000,(select address_id from address where zip_code = 21204),(select savings_account_id from savings_account where account_number = 7225991317),(select checking_account_id from checking_account where account_number = 8901512393))';
+execute immediate 'insert into EMPLOYEE(USERNAME,PASSWORD,EMAIL,PHONE_NUMBER,FIRST_NAME,LAST_NAME,DESIGNATION_ID,SALARY,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Eulah'',''v6jt4z83ii'',''Eulah.Cormier@gmail.com'',6743900927,''Eulah'',''Cormier'',((SELECT DESIGNATION_ID FROM DESIGNATION WHERE NAME = ''Assistant General Manager'')),75000,(select address_id from address where zip_code = 21205),(select savings_account_id from savings_account where account_number = 9035770670),(select checking_account_id from checking_account where account_number = 5721915194))';
+execute immediate 'insert into EMPLOYEE(USERNAME,PASSWORD,EMAIL,PHONE_NUMBER,FIRST_NAME,LAST_NAME,DESIGNATION_ID,SALARY,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Bette'',''7fiwijunbs8j'',''Bette.Denesik@gmail.com'',9021101055,''Bette'',''Denesik'',((SELECT DESIGNATION_ID FROM DESIGNATION WHERE NAME = ''Managing Director'')),905000,(select address_id from address where zip_code = 21206),(select savings_account_id from savings_account where account_number = 5721915186),(select checking_account_id from checking_account where account_number = 9035770695))';
+execute immediate 'insert into EMPLOYEE(USERNAME,PASSWORD,EMAIL,PHONE_NUMBER,FIRST_NAME,LAST_NAME,DESIGNATION_ID,SALARY,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Adonis'',''jfhjw4gqe5qdkw'',''Adonis.Connelly@gmail.com'',5053665951,''Adonis'',''Connelly'',((SELECT DESIGNATION_ID FROM DESIGNATION WHERE NAME = ''Probationary Officer'')),55000,(select address_id from address where zip_code = 21207),(select savings_account_id from savings_account where account_number = 8901512372),(select checking_account_id from checking_account where account_number = 7225991396))';
+execute immediate 'insert into EMPLOYEE(USERNAME,PASSWORD,EMAIL,PHONE_NUMBER,FIRST_NAME,LAST_NAME,DESIGNATION_ID,SALARY,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Talon'',''b0zrsjgr8p69ubp'',''Talon.Veum@gmail.com'',7033155914,''Talon'',''Veum'',((SELECT DESIGNATION_ID FROM DESIGNATION WHERE NAME = ''Deputy Managing Director'')),80000,(select address_id from address where zip_code = 21208),(select savings_account_id from savings_account where account_number = 5030861076),(select checking_account_id from checking_account where account_number = 9080114097))';
+execute immediate 'insert into EMPLOYEE(USERNAME,PASSWORD,EMAIL,PHONE_NUMBER,FIRST_NAME,LAST_NAME,DESIGNATION_ID,SALARY,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Tomas'',''mda9vk1c'',''Tomas.Smith@gmail.com'',3233612731,''Tomas'',''Smith'',((SELECT DESIGNATION_ID FROM DESIGNATION WHERE NAME = ''Chief General Manager'')),69000,(select address_id from address where zip_code = 21209),(select savings_account_id from savings_account where account_number = 8880846973),(select checking_account_id from checking_account where account_number = 3498976598))';
+execute immediate 'insert into EMPLOYEE(USERNAME,PASSWORD,EMAIL,PHONE_NUMBER,FIRST_NAME,LAST_NAME,DESIGNATION_ID,SALARY,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Minnie'',''9d5tcqwc2fpccp9'',''Minnie.Waters@gmail.com'',8473880913,''Minnie'',''Waters'',((SELECT DESIGNATION_ID FROM DESIGNATION WHERE NAME = ''Loan Officer'')),59000,(select address_id from address where zip_code = 21210),(select savings_account_id from savings_account where account_number = 9126653085),(select checking_account_id from checking_account where account_number = 7307271299))';
 
 END IF;
 
@@ -226,6 +247,13 @@ ELSE
       CHECK(REGEXP_LIKE(USERNAME,''^[A-Za-z0-9]{1,16}$'')),
       CHECK(REGEXP_LIKE(PHONE_NUMBER,''^[0-9]{10}$'')),    
       PRIMARY KEY(CUST_ID))';    
+     execute immediate 'insert into CUSTOMER(USERNAME,PASSWORD,FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Amparo'',''1i1fgteribb'',''Amparo'',''Lindgren'',8532603579,''Amparo.Lindgren@gmail.com'',(select address_id from address where zip_code = 61908),(select savings_account_id from savings_account where account_number = 9080114049),(select checking_account_id from checking_account where account_number = 8155991396))';
+execute immediate 'insert into CUSTOMER(USERNAME,PASSWORD,FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Ricardo'',''abge0g7p'',''Ricardo'',''Dietrich'',8253482578,''Ricardo.Dietrich@gmail.com'',(select address_id from address where zip_code = 23207),(select savings_account_id from savings_account where account_number = 7307271218),(select checking_account_id from checking_account where account_number = 8160114097))';
+execute immediate 'insert into CUSTOMER(USERNAME,PASSWORD,FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Kianna'',''ot6wg4r0'',''Kianna'',''Balistreri'',2191967610,''Kianna.Balistreri@gmail.com'',(select address_id from address where zip_code = 89816),(select savings_account_id from savings_account where account_number = 3498976545),(select checking_account_id from checking_account where account_number = 8178976598))';
+execute immediate 'insert into CUSTOMER(USERNAME,PASSWORD,FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Barney'',''itywahd7r88'',''Barney'',''Rice'',7385396735,''Barney.Rice@gmail.com'',(select address_id from address where zip_code = 83400),(select savings_account_id from savings_account where account_number = 8187271218),(select checking_account_id from checking_account where account_number = 8187271299))';
+execute immediate 'insert into CUSTOMER(USERNAME,PASSWORD,FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Gaylord'',''npslih7parwke'',''Gaylord'',''Mraz'',2304503579,''Gaylord.Mraz@gmail.com'',(select address_id from address where zip_code = 21202),(select savings_account_id from savings_account where account_number = 8178976491),(select checking_account_id from checking_account where account_number = 9126653090))';
+execute immediate 'insert into CUSTOMER(USERNAME,PASSWORD,FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Hope'',''vxlehjapdwh2kjk'',''Hope'',''Gerhold'',5580315119,''Hope.Gerhold@gmail.com'',(select address_id from address where zip_code = 21203),(select savings_account_id from savings_account where account_number = 8160114490),(select checking_account_id from checking_account where account_number = 8880846991))';
+execute immediate 'insert into CUSTOMER(USERNAME,PASSWORD,FIRST_NAME,LAST_NAME,PHONE_NUMBER,EMAIL,ADDRESS_ID,SAVINGS_ACCOUNT_ID,CHECKING_ACCOUNT_ID) values (''Nya'',''e3izixldj0bn'',''Nya'',''Borer'',2420091933,''Nya.Borer@gmail.com'',(select address_id from address where zip_code = 21201),(select savings_account_id from savings_account where account_number = 8155991489),(select checking_account_id from checking_account where account_number = 5030861092))';
 
 END IF;
 
@@ -241,7 +269,12 @@ ELSE
       CUST_ID            REFERENCES CUSTOMER(CUST_ID) ON DELETE CASCADE,
       INSURANCE_NAME     VARCHAR(20) NOT NULL,
       COVERAGE           NUMBER(20) NOT NULL,    
-      PRIMARY KEY(INSURANCE_ID))';    
+      PRIMARY KEY(INSURANCE_ID))';   
+	execute immediate 'insert into CUSTOMER_INSURANCE(CUST_ID,INSURANCE_NAME,COVERAGE) values ((SELECT CUST_ID FROM CUSTOMER WHERE USERNAME =''AMPARO''),''Car Insurance'',10000)';
+     execute immediate 'insert into CUSTOMER_INSURANCE(CUST_ID,INSURANCE_NAME,COVERAGE) values ((SELECT CUST_ID FROM CUSTOMER WHERE USERNAME =''Ricardo''),''Medical Insurance'',20000)';
+     execute immediate 'insert into CUSTOMER_INSURANCE(CUST_ID,INSURANCE_NAME,COVERAGE) values ((SELECT CUST_ID FROM CUSTOMER WHERE USERNAME =''Kianna''),''Home Insurance'',50000)';
+     execute immediate 'insert into CUSTOMER_INSURANCE(CUST_ID,INSURANCE_NAME,COVERAGE) values ((SELECT CUST_ID FROM CUSTOMER WHERE USERNAME =''Barney''),''Renters Insurance'',8000)';
+     execute immediate 'insert into CUSTOMER_INSURANCE(CUST_ID,INSURANCE_NAME,COVERAGE) values ((SELECT CUST_ID FROM CUSTOMER WHERE USERNAME =''Nya''),''Life Insurance'',25000)'; 
 
 END IF;
 
