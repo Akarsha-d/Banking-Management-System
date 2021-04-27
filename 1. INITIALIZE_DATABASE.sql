@@ -47,6 +47,18 @@ ELSE
       execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Payday'',35000,5,5.5)';
       execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Business'',19000,8.35,6)';
       execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Business'',31500,7.85,8)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Business'',31500,7.85,8)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Car'',15000,11,2.5)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Home'',28000,9,1.5)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Marriage'',1500,11,4.5)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Education'',78000,5.6,8)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Personal'',40000,9.9,2.3)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Personal'',758976,4.75,15)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Equity'',45000,6.6,9.8)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Payday'',356767,5,5.5)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Business'',89098,8.35,6)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Business'',31500,7.85,8)';
+      execute immediate 'insert into LOAN(TYPE, AMOUNT, ROI, DURATION) VALUES (''Payday'',31870,7,2.3)';
 END IF;
 
 
@@ -213,9 +225,9 @@ ELSE
   execute immediate 'insert into TRANSACTIONS(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Credit'',50,(select checking_account_id from checking_account where account_number = 8160114097),NULL,NULL,7867656545)';
   execute immediate 'insert into TRANSACTIONS(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Debit'',150,NULL,(select savings_account_id from savings_account where account_number = 8160114490),4567676545,NULL)';
   execute immediate 'insert into TRANSACTIONS(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Debit'',25,NULL,(select savings_account_id from savings_account where account_number = 7225991317),7656763454,NULL)';
-  execute immediate 'insert into TRANSACTION(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Credit'',1050,NULL,(select savings_account_id from savings_account where account_number = 7225991317),NULL,7867656545)';
+  execute immediate 'insert into TRANSACTIONS(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Credit'',1050,NULL,(select savings_account_id from savings_account where account_number = 7225991317),NULL,7867656545)';
   execute immediate 'insert into TRANSACTIONS(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Debit'',80,NULL,(select savings_account_id from savings_account where account_number = 8880846973),2345765634,NULL)';
-  execute immediate 'insert into TRANSACTION(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Credit'',50,NULL,(select savings_account_id from savings_account where account_number = 9035770670),NULL,7867656545)';
+  execute immediate 'insert into TRANSACTIONS(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Credit'',50,NULL,(select savings_account_id from savings_account where account_number = 9035770670),NULL,7867656545)';
   execute immediate 'insert into TRANSACTIONS(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Debit'',150,(select checking_account_id from checking_account where account_number = 5030861092),NULL,9856434311,NULL)';
   execute immediate 'insert into TRANSACTIONS(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Credit'',50,(select checking_account_id from checking_account where account_number = 8160114097),NULL,NULL,2345617876)';
   execute immediate 'insert into TRANSACTIONS(TYPE, AMOUNT, CHECKING_ACCOUNT_ID, SAVINGS_ACCOUNT_ID,BENEFICIARY_ACC_NUM,FROM_ACC_NUM) VALUES (''Debit'',200,(select checking_account_id from checking_account where account_number = 9080114097),NULL,9823112354,NULL)';
