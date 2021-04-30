@@ -839,3 +839,25 @@ ON customer(last_name);
 
 CREATE INDEX last_name_employee_i 
 ON employee(last_name);
+
+
+
+
+------------------------------------VIEWS---------------------------------------------------------------------------------------------------------------------
+
+--To fetch customer loan details
+create view customer_loan_details as select a.first_name,a.last_name,c.type,c.amount,c.roi,c.duration from customer a join customer_loan b on a.cust_id=b.cust_id join loan c on c.loan_id=b.loan_id;
+--To fetch customer card details
+create view customer_card_details as select a.first_name,c.type,c.card_number,c.valid_through,c.cvv from customer a join customer_card_services b on a.cust_id=b.cust_id join card_services c on b.card_service_id=c.card_services_id;
+--To fetch customer insurance details
+create view customer_insurance_details as select a.first_name,a.last_name,b.insurance_name,b.coverage from customer a join customer_insurance b on a.cust_id=b.cust_id;
+--To fetch employee loan details
+create view employee_loan_details as select a.first_name,a.last_name,c.type,c.amount,c.roi,c.duration from employee a join employee_loan b on a.emp_id=b.emp_id join loan c on c.loan_id=b.loan_id;
+--To fetch employee insurance details
+create view employee_insurance_details as select a.first_name,a.last_name,b.insurance_name,b.coverage from employee a join employee_insurance b on a.emp_id=b.emp_id;
+----To fetch employee card details
+create view employee_card_details as select a.first_name,c.type,c.card_number,c.valid_through,c.cvv from employee a join employee_card_services b on a.emp_id=b.emp_id join card_services c on b.card_service_id=c.card_services_id;
+----To fetch customer address details
+create view customer_address_details as select a.first_name,a.last_name,b.addressline,b.city,b.country,b.state,b.zip_code from customer a join address b on a.address_id=b.address_id;
+----To fetch employee address details
+create view employee_address_details as select a.first_name,a.last_name,b.addressline,b.city,b.country,b.state,b.zip_code from employee a join address b on a.address_id=b.address_id;

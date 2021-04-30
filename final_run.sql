@@ -4,6 +4,14 @@ BEGIN
 bank_help.print_help();
 END;
 
+begin
+employee_pkg.employee_perform_action();
+end;
+
+begin
+employee_pkg.employee_login('Talon','b0zrsjgr8p69ubp');
+end;
+
 
 
 BEGIN
