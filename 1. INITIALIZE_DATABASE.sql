@@ -861,3 +861,431 @@ create view employee_card_details as select a.first_name,c.type,c.card_number,c.
 create view customer_address_details as select a.first_name,a.last_name,b.addressline,b.city,b.country,b.state,b.zip_code from customer a join address b on a.address_id=b.address_id;
 ----To fetch employee address details
 create view employee_address_details as select a.first_name,a.last_name,b.addressline,b.city,b.country,b.state,b.zip_code from employee a join address b on a.address_id=b.address_id;
+---------------------------------------------------PACKAGES-----------------------------------------
+CREATE OR REPLACE PACKAGE BANK_HELP
+AS
+PROCEDURE PRINT_HELP;
+END BANK_HELP;
+/
+CREATE OR REPLACE PACKAGE BODY BANK_HELP 
+AS
+PROCEDURE PRINT_HELP
+AS
+BEGIN
+        dbms_output.put_line('START BY CREATEING NEW CUSTOMER!');
+        dbms_output.put_line('EXECUTE THE BELOW PROCEDURE WITH THE SPECIFIED PARAMETERS IN AN ANONYMOUS PL/SQL BLOCK AS FOLLOWS');
+        dbms_output.put_line('CREATE_CUSTOMER(USERNAME,USER_PASSWORD,FIRSTNAME,LASTNAME,PHONE,EMAIL,ADDRESS,CITY,ADDRESS_STATE,COUNTRY,ZIPCODE)');
+        dbms_output.put_line('AFTER CREATING NEW CUSTOMER EXECUTE CUSTOMER_PERFORM_ACTION TO SEE THE LIST OF AVAILABLE ACTIONS FOR CUSTOMER');
+        dbms_output.put_line('EXECUTE EMPLOYEE_PERFORM_ACTION TO SEE THE LIST OF AVAILABLE ACTIONS FOR EMPLOYEE');
+        
+EXCEPTION
+    WHEN OTHERS THEN
+        dbms_output.put_line(SQLERRM);
+        dbms_output.put_line(dbms_utility.format_error_backtrace);
+        ROLLBACK;
+END PRINT_HELP;
+END BANK_HELP;
+/
+
+CREATE OR REPLACE PACKAGE EMPLOYEE_PKG
+AS
+PROCEDURE EMPLOYEE_PERFORM_ACTION;
+PROCEDURE EMPLOYEE_LOGIN(USER_NAME IN VARCHAR2, USER_PASSWORD IN VARCHAR2);
+END EMPLOYEE_PKG;
+/
+
+CREATE OR REPLACE PACKAGE BODY EMPLOYEE_PKG
+AS
+--ALL ACTIONS OF REGISTERED EMPLOYEE
+PROCEDURE EMPLOYEE_PERFORM_ACTION
+AS
+BEGIN
+        dbms_output.put_line('WELCOME!');
+        dbms_output.put_line('PLEASE LOGIN!');
+        dbms_output.put_line('USE EMPLOYEE_LOGIN(username,password) for LOGGING IN!');
+        dbms_output.put_line('------------- PERSONAL INFORMATION -------------');
+        dbms_output.put_line('GET YOUR INFORMATION USING ');
+        dbms_output.put_line('GET_EMPLOYEE_DETAILS(firstname,lastname)');
+        
+        dbms_output.put_line('YOU CAN PERFORM FOLLOWING ACTIONS FOR CUSTOMER');
+        dbms_output.put_line('1. UPDATE ADDRESS');
+        dbms_output.put_line('2. UPDATE EMAIL');
+        dbms_output.put_line('3. UPDATE PHONE NUMBER');
+        dbms_output.put_line('4. ACCOUNT DETAILS');
+        dbms_output.put_line('5. LOAN_DETAILS');
+        dbms_output.put_line('6. INSURANCE_DETAILS');
+        dbms_output.put_line('7. CARD_SERVICES');
+        
+        dbms_output.put_line('YOU CAN PERFORM FOLLOWING ACTIONS FOR YOUR ACCOUNT');
+        dbms_output.put_line('1. UPDATE ADDRESS');
+        dbms_output.put_line('2. UPDATE PHONE NUMBER');
+        dbms_output.put_line('3. UPDATE EMAIL');
+        
+        dbms_output.put_line('ALL ACTIONS');
+        dbms_output.put_line('To VIEW CUSTOMER ADDRESS DETAILS USE SELECT * FROM customer_address_details');
+        dbms_output.put_line('To VIEW CUSTOMER CARD DETAILS USE SELECT * FROM customer_card_details');
+        dbms_output.put_line('To VIEW CUSTOMER LOAN DETAILS USE SELECT * FROM customer_loan_details');
+        dbms_output.put_line('To VIEW CUSTOMER INSURANCE DETAILS USE SELECT * FROM customer_insurance_details');
+        
+        dbms_output.put_line('To VIEW EMPLOYEE ADDRESS DETAILS USE SELECT * FROM employee_address_details');
+        dbms_output.put_line('To VIEW EMPLOYEE CARD DETAILS USE SELECT * FROM employee_card_details');
+        dbms_output.put_line('To VIEW EMPLOYEE LOAN DETAILS USE SELECT * FROM employee_loan_details');
+        dbms_output.put_line('To VIEW EMPLOYEE INSURANCE DETAILS USE SELECT * FROM employee_insurance_details');
+        
+EXCEPTION
+    WHEN OTHERS THEN
+        dbms_output.put_line(SQLERRM);
+        dbms_output.put_line(dbms_utility.format_error_backtrace);
+        ROLLBACK;
+END EMPLOYEE_PERFORM_ACTION;
+
+-- Employee login
+PROCEDURE EMPLOYEE_LOGIN 
+(
+  USER_NAME IN VARCHAR2,
+  USER_PASSWORD IN VARCHAR2
+  
+) 
+AS
+nCount INTEGER;
+BEGIN
+SELECT count(*) into nCount FROM employee where username = EMPLOYEE_LOGIN.USER_NAME and password=EMPLOYEE_LOGIN.USER_PASSWORD;
+IF(nCount = 0)
+THEN
+    dbms_output.put_line('No Employee found!');
+    RETURN;
+END IF;
+for t IN (select employee.username,employee.password from employee where employee.username=EMPLOYEE_LOGIN.USER_NAME and employee.password=EMPLOYEE_LOGIN.USER_PASSWORD)
+LOOP
+DBMS_OUTPUT.PUT_LINE('WELCOME!!!');
+DBMS_OUTPUT.PUT_LINE('First name: ' || t.username);
+DBMS_OUTPUT.PUT_LINE('Last name: ' || t.password);
+END LOOP;
+END EMPLOYEE_LOGIN;
+end EMPLOYEE_PKG;
+/
+---------------------------------------------------PROCEDURES----------------------------------------------------------------------------------------------
+
+
+--HELP TO NEW_CUSTOMERS
+SET SERVEROUTPUT ON;
+
+
+--ALL ACTIONS OF REGISTERED CUSTOMERS
+CREATE OR REPLACE PROCEDURE CUSTOMER_PERFORM_ACTION
+AS
+BEGIN
+        dbms_output.put_line('WELCOME TO OUR OUR BANK!');
+        dbms_output.put_line('PLEASE LOGIN!');
+        dbms_output.put_line('USE CUSTOMER_LOGIN(username,password) for LOGGING IN!');
+        dbms_output.put_line('AVAILABLE ACTIONS:');
+        dbms_output.put_line('------------- PERSONAL INFORMATION -------------');
+        dbms_output.put_line('1. GET YOUR INFORMATION USING ');
+        dbms_output.put_line('GET_CUSTOMER_DETAILS(firstname,lastname)');
+        
+        dbms_output.put_line('YOU CAN PERFORM FOLLOWING ACTIONS');
+        dbms_output.put_line('1. UPDATE ADDRESS');
+        dbms_output.put_line('1. UPDATE PHONE NUMBER');
+        dbms_output.put_line('1. UPDATE EMAIL');
+        
+EXCEPTION
+    WHEN OTHERS THEN
+        dbms_output.put_line(SQLERRM);
+        dbms_output.put_line(dbms_utility.format_error_backtrace);
+        ROLLBACK;
+END CUSTOMER_PERFORM_ACTION;
+
+
+
+
+
+
+
+--Procedure to add address
+create or replace PROCEDURE ADD_ADDRESS 
+(
+  ADDRESSLINE IN VARCHAR2 
+, CITY IN VARCHAR2 
+, STATE IN VARCHAR2 
+, COUNTRY IN VARCHAR2 
+, ZIP_CODE IN VARCHAR2 
+, ADDRESS_ID OUT integer 
+) AS 
+BEGIN
+  insert into address(addressline, city, state, country, zip_code) values (ADDRESSLINE, CITY, STATE, COUNTRY, ZIP_CODE);
+  select address_id into ADDRESS_ID from address where addressline = add_address.addressline and city = add_address.city and state = add_address.state and zip_code = add_address.zip_code;
+END ADD_ADDRESS;
+
+
+--add checking accout id
+create or replace PROCEDURE ADD_CHECKING_ACCOUNT_ID 
+(
+  CHECKING_ACCOUNT_ID OUT NUMBER,
+  account_no out number
+) AS 
+
+BEGIN
+  SELECT MAX(ACCOUNT_number)+1 INTO ACCOUNT_NO FROM checking_account;
+  DBMS_OUTPUT.put_line(ACCOUNT_NO);
+  INSERT INTO CHECKING_ACCOUNT(ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) VALUES (ACCOUNT_NO,1000,9);
+  select checking_account_id into CHECKING_ACCOUNT_ID from checking_account WHERE ACCOUNT_NUMBER=ACCOUNT_NO;
+ 
+END ADD_CHECKING_ACCOUNT_ID;
+
+
+--add savings account id
+create or replace PROCEDURE ADD_SAVINGS_ACCOUNT_ID 
+(
+  SAVINGS_ACCOUNT_ID OUT NUMBER,
+  account_no out number
+) AS 
+
+BEGIN
+  SELECT MAX(ACCOUNT_number)+1 INTO ACCOUNT_NO FROM SAVINGS_account;
+  INSERT INTO SAVINGS_account(ACCOUNT_NUMBER,ACCOUNT_BALANCE,BRANCH_ID) VALUES (ACCOUNT_NO,1000,9);
+  select SAVINGS_account_id into SAVINGS_account_id from SAVINGS_account WHERE ACCOUNT_NUMBER=ACCOUNT_NO;
+ 
+END ADD_SAVINGS_ACCOUNT_ID;
+
+
+--create customer
+create or replace PROCEDURE CREATE_CUSTOMER 
+(
+  USERNAME IN VARCHAR2 
+, USER_PASSWORD IN VARCHAR2 
+, FIRSTNAME IN VARCHAR2 
+, LASTNAME IN VARCHAR2 
+, PHONE IN NUMBER 
+, EMAIL IN VARCHAR2 
+, ADDRESS IN VARCHAR2 
+, CITY IN VARCHAR2 
+, ADDRESS_STATE IN VARCHAR2 
+, COUNTRY IN VARCHAR2 
+, ZIPCODE IN NUMBER 
+)
+as
+address_id integer;
+checking_account_id number;
+checking_acc_no number;
+SAVINGS_ACCOUNT_ID NUMBER;
+SAVINGS_ACC_NO NUMBER;
+BEGIN
+    add_address(address, city, address_state, country, zipcode, address_id);
+    add_checking_account_id(checking_account_id,checking_acc_no);
+    ADD_SAVINGS_ACCOUNT_ID(SAVINGS_ACCOUNT_ID,SAVINGS_ACC_NO);
+    insert into customer(username, password, first_name, last_name, phone_number, email, address_id,checking_account_id,SAVINGS_ACCOUNT_ID)
+    values (username, user_password, firstname, lastname, phone, email, address_id,checking_account_id,SAVINGS_ACCOUNT_ID);
+    for t in (select cust_id from customer where first_name = create_customer.firstname and last_name = create_customer.lastname)
+    loop
+        dbms_output.put('new customer created with customer id - ');
+        dbms_output.put_line(t.cust_id);
+        dbms_output.put('new customer created with checking account number id - ');
+        dbms_output.put_line(checking_acc_no);
+         dbms_output.put('new customer created with savings account number id - ');
+        dbms_output.put_line(SAVINGS_ACC_NO);
+    end loop;
+END CREATE_CUSTOMER;
+
+
+
+--customer login
+create or replace PROCEDURE CUSTOMER_LOGIN 
+(
+  USER_NAME IN VARCHAR2,
+  USER_PASSWORD IN VARCHAR2
+  
+) 
+AS
+nCount INTEGER;
+BEGIN
+SELECT count(*) into nCount FROM customer where username = CUSTOMER_LOGIN.USER_NAME and password=CUSTOMER_LOGIN.USER_PASSWORD;
+IF(nCount = 0)
+THEN
+    dbms_output.put_line('No Customer found!');
+    RETURN;
+END IF;
+for t IN (select customer.username,customer.password from customer where customer.username=CUSTOMER_LOGIN.USER_NAME and customer.password=CUSTOMER_LOGIN.USER_PASSWORD)
+LOOP
+DBMS_OUTPUT.PUT_LINE('WELCOME!!!');
+DBMS_OUTPUT.PUT_LINE('First name: ' || t.username);
+DBMS_OUTPUT.PUT_LINE('Last name: ' || t.password);
+END LOOP;
+
+END CUSTOMER_LOGIN;
+
+
+
+
+
+--get customer details
+create or replace PROCEDURE GET_CUSTOMER_DETAILS 
+(
+  FIRST_NAME IN VARCHAR2,
+  LAST_NAME IN VARCHAR2
+) 
+AS
+nCount INTEGER;
+BEGIN
+SELECT count(*) into nCount FROM customer where first_name = GET_CUSTOMER_DETAILS.FIRST_NAME and last_name=GET_CUSTOMER_DETAILS.LAST_NAME;
+IF(nCount = 0)
+THEN
+    dbms_output.put_line('No Customer found!');
+    RETURN;
+END IF;
+for t IN (select customer.first_name,customer.last_name, checking_account.account_number,checking_account.account_balance from checking_account join customer ON customer.checking_account_id=checking_account.checking_account_id where customer.first_name=GET_CUSTOMER_DETAILS.first_name and customer.last_name=GET_CUSTOMER_DETAILS.last_name)
+LOOP
+DBMS_OUTPUT.PUT_LINE('First name: ' || t.first_name);
+DBMS_OUTPUT.PUT_LINE('Last name: ' || t.last_name);
+DBMS_OUTPUT.PUT_LINE('Checking Account Number: ' || t.account_number);
+DBMS_OUTPUT.PUT_LINE('Checking Account Balance: ' || t.account_balance);
+END LOOP;
+
+for t IN (select customer.first_name,customer.last_name, savings_account.account_number,savings_account.account_balance from savings_account join customer ON customer.savings_account_id=savings_account.savings_account_id where customer.first_name=GET_CUSTOMER_DETAILS.first_name and customer.last_name=GET_CUSTOMER_DETAILS.last_name)
+LOOP
+DBMS_OUTPUT.PUT_LINE('Savings Account Number: ' || t.account_number);
+DBMS_OUTPUT.PUT_LINE('savings Account Balance: ' || t.account_balance);
+END LOOP;
+
+for t IN (select customer.first_name,customer.last_name, address.addressline,address.city,address.state,address.zip_code,address.country from address join customer ON customer.address_id=address.address_id where customer.first_name=GET_CUSTOMER_DETAILS.first_name and customer.last_name=GET_CUSTOMER_DETAILS.last_name)
+LOOP
+DBMS_OUTPUT.PUT_LINE('Street Address: ' || t.addressline);
+DBMS_OUTPUT.PUT_LINE('City: ' || t.city);
+DBMS_OUTPUT.PUT_LINE('State: ' || t.state);
+DBMS_OUTPUT.PUT_LINE('Zip Code: ' || t.zip_code);
+DBMS_OUTPUT.PUT_LINE('Country: ' || t.country);
+END LOOP;
+
+for t IN (select a.first_name, a.last_name,loan.type,amount,roi,loan.duration from (select customer.first_name, customer.last_name,customer_loan.loan_id from customer join customer_loan on customer.cust_id=customer_loan.cust_id where customer.first_name=GET_CUSTOMER_DETAILS.first_name and customer.last_name = GET_CUSTOMER_DETAILS.LAST_NAME) a join loan on a.loan_id=loan.loan_id)
+LOOP
+DBMS_OUTPUT.PUT_LINe('Loan Type: ' || t.type);
+DBMS_OUTPUT.PUT_LINe('Loan Amount: ' || t.amount);
+DBMS_OUTPUT.PUT_LINe('Loan ROI: ' || t.ROI);
+DBMS_OUTPUT.PUT_LINe('Loan Duration: ' || t.duration);
+end loop;
+
+for t IN (select customer.first_name,customer.last_name, customer_insurance.insurance_name,customer_insurance.coverage from customer_insurance join customer ON customer.cust_id=customer_insurance.cust_id where customer.first_name=GET_CUSTOMER_DETAILS.first_name and customer.last_name=GET_CUSTOMER_DETAILS.last_name)
+LOOP
+DBMS_OUTPUT.PUT_LINe('Insurance Type: ' || t.insurance_name);
+DBMS_OUTPUT.PUT_LINe('Coverage: ' || t.coverage);
+end loop;
+
+END GET_CUSTOMER_DETAILS;
+
+
+--get employee details
+create or replace PROCEDURE GET_EMPLOYEE_DETAILS 
+(
+  FIRST_NAME IN VARCHAR2,
+  LAST_NAME IN VARCHAR2
+) 
+AS
+nCount INTEGER;
+BEGIN
+SELECT count(*) into nCount FROM employee where first_name = GET_EMPLOYEE_DETAILS.FIRST_NAME and last_name=GET_EMPLOYEE_DETAILS.LAST_NAME;
+IF(nCount = 0)
+THEN
+    dbms_output.put_line('No Employee found!');
+    RETURN;
+END IF;
+for t IN (select employee.first_name,employee.last_name, checking_account.account_number,checking_account.account_balance from checking_account join employee ON employee.checking_account_id=checking_account.checking_account_id where employee.first_name=GET_EMPLOYEE_DETAILS.first_name and employee.last_name=GET_EMPLOYEE_DETAILS.last_name)
+LOOP
+DBMS_OUTPUT.PUT_LINE('First name: ' || t.first_name);
+DBMS_OUTPUT.PUT_LINE('Last name: ' || t.last_name);
+DBMS_OUTPUT.PUT_LINE('Checking Account Number: ' || t.account_number);
+DBMS_OUTPUT.PUT_LINE('Checking Account Balance: ' || t.account_balance);
+END LOOP;
+
+for t IN (select employee.first_name,last_name, designation.name from designation join employee ON employee.designation_id=designation.designation_id where employee.first_name=GET_EMPLOYEE_DETAILS.first_name and employee.last_name=GET_EMPLOYEE_DETAILS.last_name)
+LOOP
+DBMS_OUTPUT.PUT_LINE('Designation: ' || t.name);
+END LOOP;
+
+for t IN (select employee.first_name,employee.last_name, savings_account.account_number,savings_account.account_balance from savings_account join employee ON employee.savings_account_id=savings_account.savings_account_id where employee.first_name=GET_EMPLOYEE_DETAILS.first_name and employee.last_name=GET_EMPLOYEE_DETAILS.last_name)
+LOOP
+DBMS_OUTPUT.PUT_LINE('Savings Account Number: ' || t.account_number);
+DBMS_OUTPUT.PUT_LINE('savings Account Balance: ' || t.account_balance);
+END LOOP;
+
+for t IN (select employee.first_name,employee.last_name, address.addressline,address.city,address.state,address.zip_code,address.country from address join employee ON employee.address_id=address.address_id where employee.first_name=GET_EMPLOYEE_DETAILS.first_name and employee.last_name=GET_EMPLOYEE_DETAILS.last_name)
+LOOP
+DBMS_OUTPUT.PUT_LINE('Street Address: ' || t.addressline);
+DBMS_OUTPUT.PUT_LINE('City: ' || t.city);
+DBMS_OUTPUT.PUT_LINE('State: ' || t.state);
+DBMS_OUTPUT.PUT_LINE('Zip Code: ' || t.zip_code);
+DBMS_OUTPUT.PUT_LINE('Country: ' || t.country);
+END LOOP;
+
+for t IN (select a.first_name, a.last_name,loan.type,amount,roi,loan.duration from (select employee.first_name, employee.last_name,employee_loan.loan_id from employee join employee_loan on employee.emp_id=employee_loan.emp_id where employee.first_name=GET_EMPLOYEE_DETAILS.first_name and employee.last_name = GET_EMPLOYEE_DETAILS.LAST_NAME) a join loan on a.loan_id=loan.loan_id)
+LOOP
+DBMS_OUTPUT.PUT_LINe('Loan Type: ' || t.type);
+DBMS_OUTPUT.PUT_LINe('Loan Amount: ' || t.amount);
+DBMS_OUTPUT.PUT_LINe('Loan ROI: ' || t.ROI);
+DBMS_OUTPUT.PUT_LINe('Loan Duration: ' || t.duration);
+end loop;
+
+for t IN (select employee.first_name,employee.last_name, employee_insurance.insurance_name,employee_insurance.coverage from employee_insurance join employee ON employee.emp_id=employee_insurance.emp_id where employee.first_name=GET_EMPLOYEE_DETAILS.first_name and employee.last_name=GET_EMPLOYEE_DETAILS.last_name)
+LOOP
+DBMS_OUTPUT.PUT_LINe('Insurance Type: ' || t.insurance_name);
+DBMS_OUTPUT.PUT_LINe('Coverage: ' || t.coverage);
+end loop;
+
+END GET_EMPLOYEE_DETAILS;
+
+
+
+--------------------------------TRIGGERS----------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE EDITIONABLE TRIGGER "ADMIN"."TRIGGER_CHECKING" 
+AFTER INSERT ON TRANSACTIONS 
+REFERENCING NEW AS NEW 
+FOR EACH ROW 
+ WHEN (new.checking_account_id is not null) BEGIN
+update checking_account a set a.account_balance = CASE
+                  WHEN :new.type='Credit' THEN a.account_balance + :new.amount
+                  ELSE                     a.account_balance - :new.amount
+                  END;
+END;
+/
+ALTER TRIGGER "ADMIN"."TRIGGER_CHECKING" ENABLE;
+
+CREATE OR REPLACE EDITIONABLE TRIGGER "ADMIN"."TRIGGER_SAVING" 
+AFTER INSERT ON TRANSACTIONS 
+REFERENCING NEW AS NEW 
+FOR EACH ROW 
+ WHEN (new.savings_account_id is not null) BEGIN
+update SAVINGS_account a set a.account_balance = CASE
+                  WHEN :new.type='Credit' THEN a.account_balance + :new.amount
+                  ELSE  a.account_balance - :new.amount
+                  END;
+END;
+/
+ALTER TRIGGER "ADMIN"."TRIGGER_SAVING" ENABLE;
+
+---------------------------------------------------------------INDEX----------------------------------------------------------------------------------
+CREATE INDEX last_name_i 
+ON customer(last_name);
+
+CREATE INDEX last_name_employee_i 
+ON employee(last_name);
+
+
+
+
+------------------------------------VIEWS---------------------------------------------------------------------------------------------------------------------
+
+--To fetch customer loan details
+create view customer_loan_details as select a.first_name,a.last_name,c.type,c.amount,c.roi,c.duration from customer a join customer_loan b on a.cust_id=b.cust_id join loan c on c.loan_id=b.loan_id;
+--To fetch customer card details
+create view customer_card_details as select a.first_name,c.type,c.card_number,c.valid_through,c.cvv from customer a join customer_card_services b on a.cust_id=b.cust_id join card_services c on b.card_service_id=c.card_services_id;
+--To fetch customer insurance details
+create view customer_insurance_details as select a.first_name,a.last_name,b.insurance_name,b.coverage from customer a join customer_insurance b on a.cust_id=b.cust_id;
+--To fetch employee loan details
+create view employee_loan_details as select a.first_name,a.last_name,c.type,c.amount,c.roi,c.duration from employee a join employee_loan b on a.emp_id=b.emp_id join loan c on c.loan_id=b.loan_id;
+--To fetch employee insurance details
+create view employee_insurance_details as select a.first_name,a.last_name,b.insurance_name,b.coverage from employee a join employee_insurance b on a.emp_id=b.emp_id;
+----To fetch employee card details
+create view employee_card_details as select a.first_name,c.type,c.card_number,c.valid_through,c.cvv from employee a join employee_card_services b on a.emp_id=b.emp_id join card_services c on b.card_service_id=c.card_services_id;
+----To fetch customer address details
+create view customer_address_details as select a.first_name,a.last_name,b.addressline,b.city,b.country,b.state,b.zip_code from customer a join address b on a.address_id=b.address_id;
+----To fetch employee address details
+create view employee_address_details as select a.first_name,a.last_name,b.addressline,b.city,b.country,b.state,b.zip_code from employee a join address b on a.address_id=b.address_id;
